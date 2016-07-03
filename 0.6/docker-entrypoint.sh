@@ -49,6 +49,10 @@ if [ -n "$CONSUL_LOCAL_CONFIG" ]; then
 	echo "$CONSUL_LOCAL_CONFIG" > "$CONSUL_CONFIG_DIR/local.json"
 fi
 
+if [ -d $CONSUL_DATA_DIR ]; then
+  chown -R consul:consul $CONSUL_DATA_DIR
+fi
+
 # If the user is trying to run Consul directly with some arguments, then
 # pass them to Consul.
 if [ "${1:0:1}" = '-' ]; then
