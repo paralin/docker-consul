@@ -16,6 +16,8 @@ RUN addgroup consul && \
 
 ADD dumb-init /usr/bin/dumb-init
 ADD consul /usr/bin/consul
+ADD gosu /usr/bin/gosu
+ADD docker-entrypoint.sh /docker-entrypoint.sh
 
 # The /consul/data dir is used by Consul to store state. The agent will be started
 # with /consul/config as the configuration directory so you can add additional
@@ -40,7 +42,7 @@ EXPOSE 8301 8301/udp 8302 8302/udp
 # use to interact with Consul.
 EXPOSE 8400 8500 8600 8600/udp
 
-ENTRYPOINT ["/usr/bin/dumb-init", "/usr/bin/consul"]
+ENTRYPOINT ["/usr/bin/dumb-init", "/docker-entrypoint.sh"]
 
 # By default you'll get a single-node development server that stores everything
 # in RAM, exposes a web UI, and bootstraps itself. Don't use this configuration
